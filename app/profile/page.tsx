@@ -35,6 +35,7 @@ import {
 } from "@/lib/profile/account-age";
 import type { AppLanguage } from "@/types";
 import { syncWaterNotificationSchedule } from "@/lib/hydration/water-reminders";
+import { IconRefreshProfileCard } from "@/components/pwa/icon-refresh-profile-card";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -102,6 +103,8 @@ export default function ProfilePage() {
           {t("home.hello")} {name}
         </p>
       </header>
+
+      <IconRefreshProfileCard />
 
       <div className="premium-card overflow-hidden p-5 shadow-elev-3">
         <div className="flex items-center gap-4">

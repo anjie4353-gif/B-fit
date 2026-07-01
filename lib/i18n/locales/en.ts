@@ -70,6 +70,10 @@ export const en = {
       "Follow these steps to show the new B-Fit logo on your phone (like WhatsApp).",
     iconRefreshPreview: "New icon preview",
     iconRefreshDone: "I've updated my home screen icon",
+    iconRefreshOpenChrome: "Open in Chrome (refresh icon)",
+    iconRefreshOpenSafari: "Open in Safari (refresh icon)",
+    iconRefreshProfileHint:
+      "Home screen still shows old icon? Open browser and re-add B-Fit with the new navy logo.",
   },
   home: {
     goodMorning: "Good morning",

@@ -33,6 +33,9 @@ export const kn = {
     iconRefreshPageSubtitle: "ಫೋನ್‌ನಲ್ಲಿ ಹೊಸ B-Fit ಲೋಗೋ ತೋರಿಸಲು ಈ ಹಂತಗಳನ್ನು ಅನುಸರಿಸಿ (WhatsApp ನಂತೆ).",
     iconRefreshPreview: "ಹೊಸ ಐಕಾನ್ ಪೂರ್ವವೀಕ್ಷಣೆ",
     iconRefreshDone: "ನನ್ನ ಹೋಮ್ ಸ್ಕ್ರೀನ್ ಐಕಾನ್ ಅಪ್‌ಡೇಟ್ ಆಯಿತು",
+    iconRefreshOpenChrome: "Chrome ನಲ್ಲಿ ತೆರೆ (ಐಕಾನ್ ರಿಫ್ರೆಶ್)",
+    iconRefreshOpenSafari: "Safari ನಲ್ಲಿ ತೆರೆ (ಐಕಾನ್ ರಿಫ್ರೆಶ್)",
+    iconRefreshProfileHint: "ಹೋಮ್ ಸ್ಕ್ರೀನ್‌ನಲ್ಲಿ ಹಳೆಯ ಐಕಾನ್? ಬ್ರೌಸರ್ ತೆರೆದು ಹೊಸ navy ಲೋಗೋದೊಂದಿಗೆ ಮತ್ತೆ ಸೇರಿಸಿ.",
   },
   home: {
     goodMorning: "ಶುಭೋದಯ", goodAfternoon: "ಶುಭ ಮಧ್ಯಾಹ್ನ", goodEvening: "ಶುಭ ಸಂಜೆ", hub: "ಹಬ್",

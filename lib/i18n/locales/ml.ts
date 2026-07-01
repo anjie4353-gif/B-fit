@@ -33,6 +33,9 @@ export const ml = {
     iconRefreshPageSubtitle: "ഫോണിൽ പുതിയ B-Fit ലോഗോ കാണിക്കാൻ ഈ ഘട്ടങ്ങൾ പിന്തുടരുക (WhatsApp പോലെ).",
     iconRefreshPreview: "പുതിയ ഐക്കൺ പ്രിവ്യൂ",
     iconRefreshDone: "എന്റെ ഹോം സ്ക്രീൻ ഐക്കൺ അപ്ഡേറ്റ് ചെയ്തു",
+    iconRefreshOpenChrome: "Chrome-ൽ തുറക്കുക (ഐക്കൺ റിഫ്രഷ്)",
+    iconRefreshOpenSafari: "Safari-ൽ തുറക്കുക (ഐക്കൺ റിഫ്രഷ്)",
+    iconRefreshProfileHint: "ഹോം സ്ക്രീനിൽ പഴയ ഐക്കൺ? ബ്രൗസറിൽ തുറന്ന് പുതിയ navy ലോഗോയോടെ വീണ്ടും ചേർക്കുക.",
   },
   home: {
     goodMorning: "സുപ്രഭാതം", goodAfternoon: "ശുഭ മധ്യാഹ്നം", goodEvening: "ശുഭ സന്ധ്യ", hub: "ഹബ്",

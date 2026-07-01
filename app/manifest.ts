@@ -1,9 +1,10 @@
 import type { MetadataRoute } from "next";
+import { ICON_PACK_VERSION } from "@/lib/pwa/icon-pack";
 import { PWA_ICON_URLS } from "@/lib/pwa/icon-urls";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    id: "/",
+    id: `b-fit-wellness-icon-${ICON_PACK_VERSION}`,
     name: "B-Fit — Wellness Coach",
     short_name: "B-Fit",
     description:

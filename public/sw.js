@@ -1,4 +1,4 @@
-const CACHE = "b-fit-v1.3.4";
+const CACHE = "b-fit-v1.3.5";
 
 // Do NOT precache icons/manifest — old users need fresh icons from network
 const PRECACHE = ["/"];
@@ -37,7 +37,8 @@ self.addEventListener("fetch", (event) => {
     url.pathname.startsWith("/icons/") ||
     url.pathname.includes("manifest") ||
     url.pathname === "/" ||
-    url.search.includes("v=")
+    url.search.includes("v=") ||
+    url.search.includes("icon=")
   ) {
     event.respondWith(
       fetch(event.request).catch(() => caches.match(event.request))

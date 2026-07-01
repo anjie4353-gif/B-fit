@@ -33,6 +33,9 @@ export const hi = {
     iconRefreshPageSubtitle: "फोन पर नया B-Fit लोगो दिखाने के लिए ये स्टेप्स फॉलो करें (WhatsApp जैसा)।",
     iconRefreshPreview: "नया आइकन प्रीव्यू",
     iconRefreshDone: "मेरा होम स्क्रीन आइकन अपडेट हो गया",
+    iconRefreshOpenChrome: "Chrome में खोलें (आइकन रिफ्रेश)",
+    iconRefreshOpenSafari: "Safari में खोलें (आइकन रिफ्रेश)",
+    iconRefreshProfileHint: "होम स्क्रीन पर पुराना आइकन? ब्राउज़र खोलकर नए navy लोगो के साथ फिर जोड़ें।",
   },
   home: {
     goodMorning: "सुप्रभात", goodAfternoon: "नमस्कार", goodEvening: "शुभ संध्या", hub: "हब",

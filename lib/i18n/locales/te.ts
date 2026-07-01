@@ -33,6 +33,9 @@ export const te = {
     iconRefreshPageSubtitle: "మీ ఫోన్‌లో కొత్త B-Fit లోగో చూపించడానికి ఈ స్టెప్స్ అనుసరించండి (WhatsApp లాగా).",
     iconRefreshPreview: "కొత్త ఐకాన్ ప్రివ్యూ",
     iconRefreshDone: "నా హోమ్ స్క్రీన్ ఐకాన్ అప్‌డేట్ అయింది",
+    iconRefreshOpenChrome: "Chrome లో తెరువు (ఐకాన్ రిఫ్రెష్)",
+    iconRefreshOpenSafari: "Safari లో తెరువు (ఐకాన్ రిఫ్రెష్)",
+    iconRefreshProfileHint: "హోమ్ స్క్రీన్ లో పాత ఐకాన్ ఉందా? బ్రౌజర్ లో తెరిచి కొత్త navy లోగోతో మళ్లీ జోడించండి.",
   },
   home: {
     goodMorning: "శుభోదయం", goodAfternoon: "శుభ మధ్యాహ్నం", goodEvening: "శుభ సాయంత్రం", hub: "హబ్",

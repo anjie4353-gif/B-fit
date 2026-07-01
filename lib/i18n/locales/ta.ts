@@ -33,6 +33,9 @@ export const ta = {
     iconRefreshPageSubtitle: "போனில் புதிய B-Fit லோகோ காட்ட இந்த படிகளை பின்பற்றவும் (WhatsApp போல).",
     iconRefreshPreview: "புதிய ஐகான் முன்னோட்டம்",
     iconRefreshDone: "என் ஹோம் ஸ்கிரீன் ஐகான் புதுப்பிக்கப்பட்டது",
+    iconRefreshOpenChrome: "Chrome-ல் திற (ஐகான் புதுப்பி)",
+    iconRefreshOpenSafari: "Safari-ல் திற (ஐகான் புதுப்பி)",
+    iconRefreshProfileHint: "ஹோம் ஸ்கிரீனில் பழைய ஐகான்? உலாவியில் திறந்து புதிய navy லோகோவுடன் மீண்டும் சேர்க்கவும்.",
   },
   home: {
     goodMorning: "காலை வணக்கம்", goodAfternoon: "மதிய வணக்கம்", goodEvening: "மாலை வணக்கம்", hub: "மையம்",

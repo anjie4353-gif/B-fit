@@ -1,9 +1,9 @@
-import { APP_VERSION } from "./version";
+import { ICON_PACK_VERSION } from "./icon-pack";
 
 /** Cache-bust icon/manifest URLs so Android WebAPK picks up new home-screen icon. */
 export function versionedAsset(path: string): string {
   const sep = path.includes("?") ? "&" : "?";
-  return `${path}${sep}v=${encodeURIComponent(APP_VERSION)}`;
+  return `${path}${sep}icon=${encodeURIComponent(ICON_PACK_VERSION)}`;
 }
 
 export const PWA_ICON_URLS = {

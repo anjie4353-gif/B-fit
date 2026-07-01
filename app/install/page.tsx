@@ -9,6 +9,7 @@ import {
   ArrowLeft,
   Download,
   ExternalLink,
+  Globe,
   Smartphone,
   CheckCircle2,
   AlertCircle,
@@ -22,6 +23,7 @@ import {
   getPublicAppUrl,
   isStandaloneApp,
 } from "@/lib/pwa/install";
+import { openIconRefreshInBrowser } from "@/lib/pwa/icon-refresh";
 import { PWA_ICON_URLS } from "@/lib/pwa/icon-urls";
 import {
   markIconVersionSynced,
@@ -180,7 +182,15 @@ export default function InstallPage() {
                 <li>Menu (⋮) → &quot;Install app&quot; or &quot;Add to Home screen&quot;</li>
               </ol>
             )}
-            <Button className="w-full" onClick={confirmIconRefresh}>
+            {installed ? (
+              <Button className="w-full" onClick={() => openIconRefreshInBrowser()}>
+                <Globe className="h-4 w-4" />
+                {platform === "ios"
+                  ? t("pwa.iconRefreshOpenSafari")
+                  : t("pwa.iconRefreshOpenChrome")}
+              </Button>
+            ) : null}
+            <Button className="w-full" variant="secondary" onClick={confirmIconRefresh}>
               <CheckCircle2 className="h-4 w-4" />
               {t("pwa.iconRefreshDone")}
             </Button>
