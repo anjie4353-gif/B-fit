@@ -1,5 +1,5 @@
-const CACHE = "b-fit-v1.2.0";
-const PRECACHE = ["/", "/manifest.webmanifest", "/icons/icon-192.png", "/icons/icon-512.png"];
+const CACHE = "b-fit-v1.3.0";
+const PRECACHE = ["/", "/manifest.webmanifest", "/icons/icon-192.png", "/icons/icon-512.png", "/brand/logo-mark.png"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(

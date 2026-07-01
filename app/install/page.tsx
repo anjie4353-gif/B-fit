@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { BrandLockup } from "@/components/brand/brand-lockup";
 import {
   ArrowLeft,
   Download,
@@ -77,7 +78,8 @@ export default function InstallPage() {
         Back
       </Link>
 
-      <header>
+      <header className="space-y-3">
+        <BrandLockup markSize={44} wordmarkSize="sm" />
         <h1 className="text-display font-display">Install B-Fit</h1>
         <p className="mt-2 text-caption">
           App install cheyadaniki — Android &amp; iPhone steps

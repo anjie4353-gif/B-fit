@@ -20,6 +20,7 @@ import { FlipCard } from "@/components/ui/flip-card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/hooks/useUserStore";
+import { BrandMark } from "@/components/brand/brand-mark";
 import { APP_NAME } from "@/lib/brand";
 import { calculatePeriodPrediction } from "@/lib/period";
 import { useTranslation } from "@/components/i18n/i18n-provider";
@@ -134,9 +135,12 @@ export default function HomePage() {
       <header className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
         <p className="text-label text-accent-400">{greeting}</p>
-        <h1 className="text-display font-display text-gradient-premium">
-          {APP_NAME} {t("home.hub")}
-        </h1>
+        <div className="mt-1 flex items-center gap-2.5">
+          <BrandMark size={36} />
+          <h1 className="text-display font-display text-accent-900">
+            {APP_NAME} {t("home.hub")}
+          </h1>
+        </div>
         {profile.gender === "female" && profile.femaleProfile && (
           <p className="mt-1 text-xs text-accent-500">
             {profile.femaleProfile.city}, {profile.femaleProfile.state}

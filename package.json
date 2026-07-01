@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "icons:generate": "node scripts/generate-icons.mjs",
+    "brand:assets": "node scripts/generate-brand-assets.mjs",
     "db:wasm": "node -e \"require('fs').copyFileSync('node_modules/sql.js/dist/sql-wasm.wasm','public/sql-wasm.wasm')\"",
     "postinstall": "npm run db:wasm",
     "cap:sync": "npx cap sync android",

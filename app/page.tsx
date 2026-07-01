@@ -13,7 +13,9 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FlipCard } from "@/components/ui/flip-card";
-import { APP_NAME, APP_TAGLINE } from "@/lib/brand";
+import { APP_TAGLINE } from "@/lib/brand";
+import { BrandLockup } from "@/components/brand/brand-lockup";
+import { BrandWordmark } from "@/components/brand/brand-wordmark";
 import { useTranslation } from "@/components/i18n/i18n-provider";
 
 const features = [
@@ -56,18 +58,8 @@ export default function LandingPage() {
   return (
     <div className="relative flex min-h-dvh flex-col premium-section">
       <header className="px-5 pt-12 pb-6">
-        <div className="premium-card inline-flex items-center gap-3.5 px-4 py-3 shadow-elev-3">
-          <div className="premium-logo-mark h-11 w-11">
-            <Heart className="h-5 w-5 text-white" fill="white" />
-          </div>
-          <div>
-            <span className="font-display text-xl font-extrabold text-accent-900">
-              {APP_NAME}
-            </span>
-            <p className="text-[10px] font-semibold uppercase tracking-widest text-accent-400">
-              {t("landing.premiumWellness")}
-            </p>
-          </div>
+        <div className="premium-card inline-flex px-4 py-3 shadow-elev-3">
+          <BrandLockup markSize={48} wordmarkSize="sm" />
         </div>
       </header>
 
@@ -77,10 +69,11 @@ export default function LandingPage() {
           AI-Powered Wellness
         </div>
 
-        <h1 className="font-display text-[2.6rem] font-extrabold leading-[1.05] tracking-tight">
-          <span className="text-gradient-premium">B-Fit</span>
-          <br />
-          <span className="text-accent-900">{t("landing.forEveryBody")}</span>
+        <h1 className="font-display leading-[1.05] tracking-tight">
+          <BrandWordmark size="lg" showTagline={false} />
+          <span className="mt-3 block text-[2rem] font-extrabold text-accent-900">
+            {t("landing.forEveryBody")}
+          </span>
         </h1>
 
         <p className="mt-4 max-w-sm text-[0.95rem] leading-relaxed text-accent-500">

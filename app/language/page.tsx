@@ -1,11 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Globe, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import { useUserStore } from "@/hooks/useUserStore";
 import { useTranslation } from "@/components/i18n/i18n-provider";
 import { SUPPORTED_LANGUAGES } from "@/lib/i18n";
 import type { AppLanguage } from "@/types";
+import { BrandLockup } from "@/components/brand/brand-lockup";
 import { cn } from "@/lib/utils";
 
 export default function LanguagePage() {
@@ -26,9 +27,8 @@ export default function LanguagePage() {
 
   return (
     <div className="flex min-h-dvh flex-col px-5 py-10 premium-section">
-      <div className="premium-card mb-6 inline-flex items-center gap-2 self-start px-4 py-2">
-        <Globe className="h-4 w-4 text-brand-violet" />
-        <span className="text-label text-accent-500">B-Fit</span>
+      <div className="premium-card mb-6 self-start px-4 py-3">
+        <BrandLockup markSize={40} wordmarkSize="sm" />
       </div>
 
       <h1 className="font-display text-3xl font-extrabold text-gradient-premium">
