@@ -41,6 +41,17 @@ export const en = {
     updateBody: "Tap Update to get the latest B-Fit improvements — no reinstall needed.",
     updateButton: "Update app",
     updating: "Updating…",
+    iconRefreshTitle: "New app icon available",
+    iconRefreshAndroid:
+      "Tap below to refresh your home screen icon (like WhatsApp). Remove old shortcut if needed, then re-add.",
+    iconRefreshIos:
+      "iPhone: delete old home screen icon, open Safari, Share → Add to Home Screen for the new logo.",
+    iconRefreshButton: "Refresh home screen icon",
+    iconRefreshPageTitle: "Refresh home screen icon",
+    iconRefreshPageSubtitle:
+      "Follow these steps to show the new B-Fit logo on your phone (like WhatsApp).",
+    iconRefreshPreview: "New icon preview",
+    iconRefreshDone: "I've updated my home screen icon",
   },
   home: {
     goodMorning: "Good morning",

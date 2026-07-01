@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Download, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getInstallPlatform, isStandaloneApp } from "@/lib/pwa/install";
+import { markIconVersionSynced } from "@/lib/pwa/icon-version";
 import { requestNotificationPermission } from "@/lib/pwa/notifications";
 
 interface BeforeInstallPromptEvent extends Event {
@@ -41,6 +42,8 @@ export function InstallPrompt({ className }: { className?: string }) {
     await requestNotificationPermission();
     if (deferred) {
       await deferred.prompt();
+      const { outcome } = await deferred.userChoice;
+      if (outcome === "accepted") markIconVersionSynced();
       setDeferred(null);
     }
   };

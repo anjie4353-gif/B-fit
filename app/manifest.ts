@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { PWA_ICON_URLS } from "@/lib/pwa/icon-urls";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
@@ -17,31 +18,31 @@ export default function manifest(): MetadataRoute.Manifest {
     prefer_related_applications: false,
     icons: [
       {
-        src: "/icons/icon-192.png",
+        src: PWA_ICON_URLS.icon192,
         sizes: "192x192",
         type: "image/png",
         purpose: "any",
       },
       {
-        src: "/icons/icon-512.png",
+        src: PWA_ICON_URLS.icon512,
         sizes: "512x512",
         type: "image/png",
         purpose: "any",
       },
       {
-        src: "/icons/maskable-icon-192.png",
+        src: PWA_ICON_URLS.maskable192,
         sizes: "192x192",
         type: "image/png",
         purpose: "maskable",
       },
       {
-        src: "/icons/maskable-icon-512.png",
+        src: PWA_ICON_URLS.maskable512,
         sizes: "512x512",
         type: "image/png",
         purpose: "maskable",
       },
       {
-        src: "/icons/apple-touch-icon.png",
+        src: PWA_ICON_URLS.appleTouch,
         sizes: "180x180",
         type: "image/png",
         purpose: "any",

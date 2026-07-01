@@ -6,6 +6,7 @@ import { LanguageGate } from "@/components/routing/language-gate";
 import { NotificationBootstrap } from "@/components/notifications/notification-bootstrap";
 import { PwaProvider } from "@/components/pwa/pwa-provider";
 import { StoreHydration } from "@/components/providers/store-hydration";
+import { PWA_ICON_URLS } from "@/lib/pwa/icon-urls";
 import "./globals.css";
 
 const inter = Inter({
@@ -24,16 +25,16 @@ export const metadata: Metadata = {
   title: "B-Fit — Indian Health & Wellness",
   description:
     "B-Fit: AI wellness PWA for Indian men and women — real-time plans, smart reminders, period tracking, and PCOD support.",
-  manifest: "/manifest.webmanifest",
+  manifest: PWA_ICON_URLS.manifest,
   applicationName: "B-Fit",
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "48x48" },
-      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+      { url: PWA_ICON_URLS.favicon, sizes: "48x48" },
+      { url: PWA_ICON_URLS.icon192, sizes: "192x192", type: "image/png" },
+      { url: PWA_ICON_URLS.icon512, sizes: "512x512", type: "image/png" },
     ],
     apple: [
-      { url: "/icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+      { url: PWA_ICON_URLS.appleTouch, sizes: "180x180", type: "image/png" },
     ],
   },
   appleWebApp: {

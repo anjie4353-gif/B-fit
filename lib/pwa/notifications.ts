@@ -1,3 +1,4 @@
+import { PWA_ICON_URLS } from "./icon-urls";
 import { initPwaServiceWorker } from "./update";
 
 export async function registerServiceWorker(): Promise<ServiceWorkerRegistration | null> {
@@ -44,8 +45,8 @@ export async function showReminderNotification(
     await reg.showNotification(title, {
       body: body.slice(0, 180),
       tag,
-      icon: "/icons/icon-192.png",
-      badge: "/icons/icon-192.png",
+      icon: PWA_ICON_URLS.icon192,
+      badge: PWA_ICON_URLS.icon192,
       requireInteraction: true,
     } as NotificationOptions);
   } catch {

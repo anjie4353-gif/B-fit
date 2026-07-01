@@ -1,15 +1,7 @@
-const CACHE = "b-fit-v1.3.2";
-const PRECACHE = [
-  "/",
-  "/manifest.webmanifest",
-  "/favicon.ico",
-  "/icons/icon-192.png",
-  "/icons/icon-512.png",
-  "/icons/maskable-icon-192.png",
-  "/icons/maskable-icon-512.png",
-  "/icons/apple-touch-icon.png",
-  "/brand/logo-mark.png",
-];
+const CACHE = "b-fit-v1.3.3";
+
+// Do NOT precache icons/manifest — old users need fresh icons from network
+const PRECACHE = ["/"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -38,6 +30,21 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
+  const url = new URL(event.request.url);
+
+  // Always network-first for icons, manifest, and HTML — home screen icon updates
+  if (
+    url.pathname.startsWith("/icons/") ||
+    url.pathname.includes("manifest") ||
+    url.pathname === "/" ||
+    url.search.includes("v=")
+  ) {
+    event.respondWith(
+      fetch(event.request).catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
   event.respondWith(
     fetch(event.request)
       .then((response) => response)

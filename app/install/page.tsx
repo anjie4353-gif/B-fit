@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { BrandLockup } from "@/components/brand/brand-lockup";
+import { useTranslation } from "@/components/i18n/i18n-provider";
 import {
   ArrowLeft,
   Download,
@@ -10,6 +12,7 @@ import {
   Smartphone,
   CheckCircle2,
   AlertCircle,
+  ImageIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -19,6 +22,11 @@ import {
   getPublicAppUrl,
   isStandaloneApp,
 } from "@/lib/pwa/install";
+import { PWA_ICON_URLS } from "@/lib/pwa/icon-urls";
+import {
+  markIconVersionSynced,
+  needsIconRefresh,
+} from "@/lib/pwa/icon-version";
 import { requestNotificationPermission } from "@/lib/pwa/notifications";
 
 interface BeforeInstallPromptEvent extends Event {
@@ -27,12 +35,15 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 export default function InstallPage() {
+  const { t } = useTranslation();
   const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(
     null
   );
   const [installed, setInstalled] = useState(false);
   const [apkReady, setApkReady] = useState(false);
   const [checkingApk, setCheckingApk] = useState(true);
+  const [showIconRefresh, setShowIconRefresh] = useState(false);
+  const [iconRefreshDone, setIconRefreshDone] = useState(false);
   const platform = getInstallPlatform();
   const appUrl = getPublicAppUrl();
   const onLocalhost =
@@ -42,6 +53,17 @@ export default function InstallPage() {
 
   useEffect(() => {
     setInstalled(isStandaloneApp());
+
+    const refreshNeeded = needsIconRefresh();
+    const hashMatch =
+      typeof window !== "undefined" && window.location.hash === "#icon-refresh";
+    setShowIconRefresh(refreshNeeded || hashMatch);
+
+    if (hashMatch) {
+      window.setTimeout(() => {
+        document.getElementById("icon-refresh")?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
 
     const handler = (e: Event) => {
       e.preventDefault();
@@ -63,9 +85,18 @@ export default function InstallPage() {
     if (deferred) {
       await deferred.prompt();
       const { outcome } = await deferred.userChoice;
-      if (outcome === "accepted") setInstalled(true);
+      if (outcome === "accepted") {
+        setInstalled(true);
+        markIconVersionSynced();
+      }
       setDeferred(null);
     }
+  };
+
+  const confirmIconRefresh = () => {
+    markIconVersionSynced();
+    setIconRefreshDone(true);
+    setShowIconRefresh(false);
   };
 
   return (
@@ -98,6 +129,61 @@ export default function InstallPage() {
                 Home screen nunchi B-Fit open cheyandi.
               </p>
             </div>
+          </CardContent>
+        </Card>
+      ) : null}
+
+      {iconRefreshDone ? (
+        <Card className="border-success-500/30 bg-success-50/40">
+          <CardContent className="flex items-start gap-3 p-4">
+            <CheckCircle2 className="h-5 w-5 shrink-0 text-success-600" />
+            <p className="text-sm font-semibold text-accent-900">
+              {t("pwa.iconRefreshDone")}
+            </p>
+          </CardContent>
+        </Card>
+      ) : null}
+
+      {showIconRefresh && !iconRefreshDone ? (
+        <Card id="icon-refresh" className="border-amber-300/50 bg-amber-50/30">
+          <CardContent className="space-y-4 p-5">
+            <div className="flex items-center gap-2 text-accent-800">
+              <ImageIcon className="h-5 w-5" />
+              <span className="text-sm font-semibold">
+                {t("pwa.iconRefreshPageTitle")}
+              </span>
+            </div>
+            <p className="text-xs leading-relaxed text-accent-600">
+              {t("pwa.iconRefreshPageSubtitle")}
+            </p>
+            <div className="flex items-center gap-3 rounded-xl bg-white/70 p-3">
+              <Image
+                src={PWA_ICON_URLS.icon192}
+                alt=""
+                width={64}
+                height={64}
+                className="h-16 w-16 rounded-2xl shadow-sm"
+                unoptimized
+              />
+              <p className="text-xs text-accent-600">{t("pwa.iconRefreshPreview")}</p>
+            </div>
+            {platform === "ios" ? (
+              <ol className="list-decimal space-y-1.5 pl-4 text-xs leading-relaxed text-accent-700">
+                <li>Home screen lo purana B-Fit icon delete cheyandi</li>
+                <li>Safari lo live link open cheyandi (Chrome kadu)</li>
+                <li>Share → &quot;Add to Home Screen&quot;</li>
+              </ol>
+            ) : (
+              <ol className="list-decimal space-y-1.5 pl-4 text-xs leading-relaxed text-accent-700">
+                <li>Home screen lo purana B-Fit shortcut remove cheyandi</li>
+                <li>Chrome lo live link open cheyandi</li>
+                <li>Menu (⋮) → &quot;Install app&quot; or &quot;Add to Home screen&quot;</li>
+              </ol>
+            )}
+            <Button className="w-full" onClick={confirmIconRefresh}>
+              <CheckCircle2 className="h-4 w-4" />
+              {t("pwa.iconRefreshDone")}
+            </Button>
           </CardContent>
         </Card>
       ) : null}

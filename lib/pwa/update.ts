@@ -1,3 +1,4 @@
+import { PWA_ICON_URLS } from "./icon-urls";
 import { APP_VERSION } from "./version";
 
 export type UpdateCallback = (version: string) => void;
@@ -141,8 +142,8 @@ export async function notifyUpdateAvailable(
     await reg.showNotification(title, {
       body,
       tag: "bfit-app-update",
-      icon: "/icons/icon-192.png",
-      badge: "/icons/icon-192.png",
+      icon: PWA_ICON_URLS.icon192,
+      badge: PWA_ICON_URLS.icon192,
       requireInteraction: true,
       data: { url: "/" },
     } as NotificationOptions);
