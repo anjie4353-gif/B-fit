@@ -11,7 +11,9 @@ description: >
 ## Repos & accounts
 
 - **GitHub:** https://github.com/anjie4353-gif/B-fit
-- **Vercel:** `npx vercel --prod` (logged-in account deploys)
+- **Production:** https://herhealth-ai-phi.vercel.app
+- **Install page:** https://herhealth-ai-phi.vercel.app/install
+- **Vercel project:** `herhealth-ai` (`npx vercel --prod`)
 
 ## Pre-push checklist
 
