@@ -1,65 +1,159 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import Link from "next/link";
+import {
+  ArrowRight,
+  CalendarHeart,
+  Droplets,
+  Heart,
+  MessageCircle,
+  Shield,
+  Sparkles,
+  RotateCcw,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { FlipCard } from "@/components/ui/flip-card";
+import { APP_NAME, APP_TAGLINE } from "@/lib/brand";
+import { useTranslation } from "@/components/i18n/i18n-provider";
+
+const features = [
+  {
+    icon: CalendarHeart,
+    title: "Period Tracking",
+    desc: "Smart cycle predictions & gentle reminders",
+    back: "Log your cycle, get phase-aware tips, and never be caught off guard.",
+    gradient: "flip-gradient-rose",
+    iconColor: "text-brand-rose",
+  },
+  {
+    icon: Heart,
+    title: "PCOD Support",
+    desc: "Lifestyle tips tailored for PCOS wellness",
+    back: "Nutrition, movement & mindfulness plans designed for hormonal balance.",
+    gradient: "flip-gradient-coral",
+    iconColor: "text-brand-coral",
+  },
+  {
+    icon: MessageCircle,
+    title: "AI Coach",
+    desc: "24/7 compassionate wellness guidance",
+    back: "Ask anything — diet, workouts, mood, or cycle questions. Always private.",
+    gradient: "flip-gradient-violet",
+    iconColor: "text-brand-violet",
+  },
+  {
+    icon: Droplets,
+    title: "Daily Wellness",
+    desc: "Water, sleep, movement & mood tracking",
+    back: "Track glasses, steps, sleep & mood in one beautiful daily snapshot.",
+    gradient: "flip-gradient-teal",
+    iconColor: "text-brand-teal",
+  },
+];
+
+export default function LandingPage() {
+  const { t } = useTranslation();
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="relative flex min-h-dvh flex-col premium-section">
+      <header className="px-5 pt-12 pb-6">
+        <div className="premium-card inline-flex items-center gap-3.5 px-4 py-3 shadow-elev-3">
+          <div className="premium-logo-mark h-11 w-11">
+            <Heart className="h-5 w-5 text-white" fill="white" />
+          </div>
+          <div>
+            <span className="font-display text-xl font-extrabold text-accent-900">
+              {APP_NAME}
+            </span>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-accent-400">
+              {t("landing.premiumWellness")}
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <section className="flex-1 px-5">
+        <div className="premium-badge mb-4">
+          <Sparkles className="h-3 w-3 text-brand-gold" />
+          AI-Powered Wellness
+        </div>
+
+        <h1 className="font-display text-[2.6rem] font-extrabold leading-[1.05] tracking-tight">
+          <span className="text-gradient-premium">B-Fit</span>
+          <br />
+          <span className="text-accent-900">{t("landing.forEveryBody")}</span>
+        </h1>
+
+        <p className="mt-4 max-w-sm text-[0.95rem] leading-relaxed text-accent-500">
+          {APP_TAGLINE} — period tracking, PCOD support, fitness coaching, and
+          smart PWA reminders in one app.
+        </p>
+
+        <p className="mt-5 flex items-center gap-1.5 text-label text-accent-400">
+          <RotateCcw className="h-3 w-3" />
+          {t("landing.tapCards")}
+        </p>
+
+        <div className="mt-4 grid grid-cols-2 gap-3.5">
+          {features.map(({ icon: Icon, title, desc, back, gradient, iconColor }) => (
+            <FlipCard
+              key={title}
+              gradientClass={gradient}
+              height="h-[178px]"
+              front={
+                <div className="relative z-[3] flex h-full flex-col justify-between p-4">
+                  <div className="flip-icon-ring h-11 w-11">
+                    <Icon className={`h-5 w-5 ${iconColor}`} />
+                  </div>
+                  <div>
+                    <h3 className="font-display text-sm font-bold text-accent-900">{title}</h3>
+                    <p className="mt-1 text-xs leading-relaxed text-accent-600/90">
+                      {desc}
+                    </p>
+                  </div>
+                  <span className="flip-hint">Flip for more</span>
+                </div>
+              }
+              back={
+                <div className="relative z-[3] flex h-full flex-col justify-between p-4">
+                  <div className="flip-icon-ring h-11 w-11">
+                    <Icon className={`h-5 w-5 ${iconColor}`} />
+                  </div>
+                  <p className="text-xs font-semibold leading-relaxed text-accent-800">
+                    {back}
+                  </p>
+                  <span className="flip-hint">Tap to flip back</span>
+                </div>
+              }
+            />
+          ))}
+        </div>
+
+        <div className="premium-card mt-6 flex items-start gap-3 p-4 shadow-elev-2">
+          <div className="flip-icon-ring h-9 w-9 shrink-0">
+            <Shield className="h-4 w-4 text-brand-teal" />
+          </div>
+          <p className="text-xs font-medium leading-relaxed text-accent-600">
+            {t("landing.privacyNote")}
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <footer className="sticky bottom-0 px-5 pb-8 pt-6">
+        <div className="premium-card p-5 shadow-elev-4">
+          <Button asChild size="lg" className="w-full">
+            <Link href="/language">
+              {t("landing.getStarted")}
+              <ArrowRight className="h-5 w-5" />
+            </Link>
+          </Button>
+          <p className="mt-3.5 text-center text-xs font-medium text-accent-400">
+            <Link href="/install" className="underline decoration-accent-300 hover:text-accent-600">
+              {t("landing.installApk")}
+            </Link>
+            {" · "}{t("common.free")} · {t("common.private")}
+          </p>
         </div>
-      </main>
+      </footer>
     </div>
   );
 }

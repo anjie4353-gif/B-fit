@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">B-Fit</string>
+    <string name="title_activity_main">B-Fit</string>
+    <string name="package_name">com.bfit.wellness</string>
+    <string name="custom_url_scheme">com.bfit.wellness</string>
+</resources>

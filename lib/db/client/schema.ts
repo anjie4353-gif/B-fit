@@ -1,0 +1,24 @@
+export const CLIENT_SCHEMA_SQL = `
+CREATE TABLE IF NOT EXISTS kv_store (
+  key TEXT PRIMARY KEY,
+  value TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS daily_logs (
+  date TEXT PRIMARY KEY,
+  water_intake INTEGER NOT NULL DEFAULT 0,
+  steps INTEGER NOT NULL DEFAULT 0,
+  sleep_hours REAL NOT NULL DEFAULT 0,
+  mood INTEGER NOT NULL DEFAULT 0,
+  energy_level INTEGER NOT NULL DEFAULT 0,
+  updated_at TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_daily_logs_date ON daily_logs(date DESC);
+
+CREATE TABLE IF NOT EXISTS meta (
+  key TEXT PRIMARY KEY,
+  value TEXT NOT NULL
+);
+`;

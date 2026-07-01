@@ -1,5 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
 /.pnp
@@ -12,6 +10,13 @@
 
 # testing
 /coverage
+/test-results/
+/playwright-report/
+/blob-report/
+/screenshots/
+
+# capacitor build output (source in android/)
+/capacitor-www/
 
 # next.js
 /.next/
@@ -19,6 +24,9 @@
 
 # production
 /build
+
+# local user store (dev only)
+/data/
 
 # misc
 .DS_Store
@@ -30,8 +38,8 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files
+.env*.local
 
 # vercel
 .vercel
