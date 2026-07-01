@@ -1,21 +1,41 @@
 "use client";
 
+import { useState } from "react";
 import { format } from "date-fns";
-import { Bell, Check, Clock, RefreshCw } from "lucide-react";
+import { Bell, Ban, Check, Clock, RefreshCw } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useTranslation } from "@/components/i18n/i18n-provider";
 import { useUserStore } from "@/hooks/useUserStore";
 import { isPlanExpired } from "@/lib/plan/build-schedule";
+import { generateWellnessPlan } from "@/lib/plan/generate-plan";
 import { reminderKey, todayKey } from "@/lib/plan/reminder-logic";
 import { InstallPrompt } from "@/components/pwa/install-prompt";
+import type { UserProfile } from "@/types";
 import { cn } from "@/lib/utils";
 
 export function PlanToday() {
+  const { t } = useTranslation();
   const profile = useUserStore((s) => s.profile);
   const wellnessPlan = useUserStore((s) => s.wellnessPlan);
   const reminderStates = useUserStore((s) => s.reminderStates);
+  const setWellnessPlan = useUserStore((s) => s.setWellnessPlan);
   const markReminderDone = useUserStore((s) => s.markReminderDone);
+  const snoozeReminder = useUserStore((s) => s.snoozeReminder);
+  const stopReminder = useUserStore((s) => s.stopReminder);
+  const [regenerating, setRegenerating] = useState(false);
+  const [regenError, setRegenError] = useState<string | null>(null);
+
+  const regeneratePlan = async () => {
+    if (!profile?.consentGiven) return;
+    setRegenerating(true);
+    setRegenError(null);
+    const { plan, error } = await generateWellnessPlan(profile as UserProfile);
+    if (plan) setWellnessPlan(plan);
+    else setRegenError(error ?? t("plan.regenerateFailed"));
+    setRegenerating(false);
+  };
 
   if (!profile?.consentGiven) {
     return (
@@ -30,10 +50,19 @@ export function PlanToday() {
 
   if (!wellnessPlan) {
     return (
-      <div className="px-4 py-8 text-center text-accent-500">
-        <p>Your plan is being prepared…</p>
-        <Button asChild className="mt-4" variant="secondary">
-          <Link href="/onboarding">Set up again</Link>
+      <div className="space-y-4 px-4 py-8 text-center text-accent-500">
+        <p>{t("plan.preparing")}</p>
+        {regenError ? (
+          <p className="text-xs text-red-600">{regenError}</p>
+        ) : null}
+        <Button
+          className="mt-4"
+          variant="secondary"
+          disabled={regenerating}
+          onClick={() => void regeneratePlan()}
+        >
+          <RefreshCw className={cn("h-4 w-4", regenerating && "animate-spin")} />
+          {regenerating ? t("plan.regenerating") : t("plan.regeneratePlan")}
         </Button>
       </div>
     );
@@ -49,32 +78,32 @@ export function PlanToday() {
       {expired && (
         <Card className="border-accent-300 bg-accent-50/90 shadow-elev-1">
           <CardContent className="p-4 text-sm text-accent-800">
-            <p className="font-medium">3-month plan ended</p>
-            <p className="mt-1 text-xs">
-              Update your inputs so the coach can build a fresh plan.
-            </p>
-            <Button asChild size="sm" className="mt-3 w-full">
-              <Link href="/onboarding?renew=1">
-                <RefreshCw className="h-4 w-4" />
-                Renew plan
-              </Link>
+            <p className="font-medium">{t("plan.expiredTitle")}</p>
+            <p className="mt-1 text-xs">{t("plan.expiredBody")}</p>
+            <Button
+              size="sm"
+              className="mt-3 w-full"
+              disabled={regenerating}
+              onClick={() => void regeneratePlan()}
+            >
+              <RefreshCw className={cn("h-4 w-4", regenerating && "animate-spin")} />
+              {regenerating ? t("plan.regenerating") : t("plan.regeneratePlan")}
             </Button>
           </CardContent>
         </Card>
       )}
 
       <header>
-        <h1 className="text-display font-display">
-          Today&apos;s Plan
-        </h1>
+        <h1 className="text-display font-display">{t("plan.todayTitle")}</h1>
         <p className="text-caption">
-          Valid until {format(new Date(wellnessPlan.expiresAt), "MMM d, yyyy")}
+          {t("plan.validUntil")}{" "}
+          {format(new Date(wellnessPlan.expiresAt), "MMM d, yyyy")}
         </p>
       </header>
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Coach summary</CardTitle>
+          <CardTitle className="text-base">{t("plan.coachSummary")}</CardTitle>
         </CardHeader>
         <CardContent>
           <p className="whitespace-pre-wrap text-sm text-accent-700 leading-relaxed">
@@ -87,7 +116,7 @@ export function PlanToday() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
             <Clock className="h-4 w-4" />
-            Reminders
+            {t("plan.remindersTitle")}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-2">
@@ -96,17 +125,22 @@ export function PlanToday() {
             const state = reminderStates[key];
             const done = state?.status === "done";
             const stopped = state?.status === "stopped";
+            const snoozed =
+              state?.snoozedUntil &&
+              new Date(state.snoozedUntil).getTime() > Date.now();
 
             return (
               <div
                 key={slot.id}
                 className={cn(
-                  "flex items-center gap-3 rounded-xl border p-3",
+                  "flex items-center gap-2 rounded-xl border p-3",
                   done
                     ? "border-success-500/30 bg-success-50/50"
                     : stopped
                       ? "border-accent-200 bg-accent-50/40 opacity-70"
-                      : "border-accent-200 bg-white/60"
+                      : snoozed
+                        ? "border-amber-200 bg-amber-50/40"
+                        : "border-accent-200 bg-white/60"
                 )}
               >
                 <div className="flex-1 min-w-0">
@@ -114,21 +148,49 @@ export function PlanToday() {
                     {slot.label}
                   </p>
                   <p className="text-xs text-accent-500">{slot.time}</p>
+                  {snoozed ? (
+                    <p className="text-[10px] text-amber-700">
+                      {t("plan.reminderSnoozed")}
+                    </p>
+                  ) : null}
                 </div>
                 {done ? (
-                  <Check className="h-5 w-5 text-success-600 shrink-0" />
+                  <Check className="h-5 w-5 shrink-0 text-success-600" />
                 ) : stopped ? (
-                  <span className="text-[10px] text-accent-500">Paused</span>
+                  <span className="text-[10px] text-accent-500">
+                    {t("plan.reminderStopped")}
+                  </span>
                 ) : (
-                  <Button
-                    size="sm"
-                    variant="secondary"
-                    className="shrink-0"
-                    onClick={() => markReminderDone(key)}
-                  >
-                    <Bell className="h-3 w-3" />
-                    Done
-                  </Button>
+                  <div className="flex shrink-0 flex-col gap-1">
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                      onClick={() => markReminderDone(key)}
+                    >
+                      <Check className="h-3 w-3" />
+                      {t("plan.reminderDone")}
+                    </Button>
+                    <div className="flex gap-1">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="h-7 px-2 text-[10px]"
+                        onClick={() => snoozeReminder(key, 10)}
+                      >
+                        <Clock className="h-3 w-3" />
+                        {t("plan.reminderSnooze")}
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="h-7 px-2 text-[10px]"
+                        onClick={() => stopReminder(key)}
+                      >
+                        <Ban className="h-3 w-3" />
+                        {t("plan.reminderStop")}
+                      </Button>
+                    </div>
+                  </div>
                 )}
               </div>
             );

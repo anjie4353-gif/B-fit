@@ -1,6 +1,14 @@
 export const hi = {
   common: { continue: "जारी रखें", back: "वापस", save: "सहेजें", cancel: "रद्द करें", loading: "लोड हो रहा है...", free: "मुफ़्त", private: "निजी" },
-  language: { title: "अपनी भाषा चुनें", subtitle: "अपनी पसंदीदा भाषा चुनें। बाद में प्रोफ़ाइल में बदल सकते हैं।" },
+  language: { title: "अपनी भाषा चुनें", subtitle: "सेटअप के दौरान एक बार चुनें। बाद में केवल प्रोफ़ाइल में बदलें।" },
+  plan: {
+    todayTitle: "आज की योजना", validUntil: "वैध तक", coachSummary: "कोच सारांश", remindersTitle: "रिमाइंडर",
+    preparing: "आपकी योजना तैयार हो रही है…", regeneratePlan: "योजना रिफ्रेश", regenerating: "रिफ्रेश हो रहा है…",
+    regenerateFailed: "योजना रिफ्रेश नहीं हुई। फिर कोशिश करें।", expiredTitle: "3 महीने की योजना समाप्त",
+    expiredBody: "पूरी सेटअप के बिना योजना रिफ्रेश करें।", reminderDone: "पूर्ण", reminderSnooze: "स्नूज़",
+    reminderStop: "रोकें", reminderSnoozeHint: "स्नूज़ 10 मिनट बाद फिर याद दिलाएगा।", reminderSnoozed: "स्नूज़ किया",
+    reminderStopped: "रोका गया",
+  },
   onboarding: {
     whatToCallYou: "हम आपको क्या बुलाएं?", fullName: "पूरा नाम", fullNamePlaceholder: "आपका पूरा नाम",
     nickname: "उपनाम (वैकल्पिक)", nicknamePlaceholder: "दोस्त आपको क्या बुलाते हैं",

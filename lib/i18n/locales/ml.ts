@@ -1,6 +1,14 @@
 export const ml = {
   common: { continue: "തുടരുക", back: "പിന്നോട്ട്", save: "സേവ്", cancel: "റദ്ദാക്കുക", loading: "ലോഡ് ചെയ്യുന്നു...", free: "സൗജന്യം", private: "സ്വകാര്യം" },
-  language: { title: "നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക", subtitle: "ഇഷ്ടപ്പെട്ട ഭാഷ തിരഞ്ഞെടുക്കുക. പിന്നീട് പ്രൊഫൈലിൽ മാറ്റാം." },
+  language: { title: "നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക", subtitle: "സെറ്റപ്പ് സമയത്ത് ഒരിക്കൽ തിരഞ്ഞെടുക്കുക. പിന്നീട് പ്രൊഫൈലിൽ മാത്രം മാറ്റുക." },
+  plan: {
+    todayTitle: "ഇന്നത്തെ പ്ലാൻ", validUntil: "വരെ സാധുത", coachSummary: "കോച്ച് സംഗ്രഹം", remindersTitle: "ഓർമ്മപ്പെടുത്തലുകൾ",
+    preparing: "നിങ്ങളുടെ പ്ലാൻ തയ്യാറാക്കുന്നു…", regeneratePlan: "പ്ലാൻ റിഫ്രഷ്", regenerating: "റിഫ്രഷ് ചെയ്യുന്നു…",
+    regenerateFailed: "പ്ലാൻ റിഫ്രഷ് ചെയ്യാൻ കഴിഞ്ഞില്ല.", expiredTitle: "3 മാസ പ്ലാൻ അവസാനിച്ചു",
+    expiredBody: "പൂർണ്ണ സെറ്റപ്പ് ഇല്ലാതെ പ്ലാൻ റിഫ്രഷ് ചെയ്യുക.", reminderDone: "പൂർത്തി", reminderSnooze: "സ്നൂസ്",
+    reminderStop: "നിർത്തുക", reminderSnoozeHint: "സ്നൂസ് 10 മിനിറ്റിൽ വീണ്ടും ഓർമ്മിപ്പിക്കും.", reminderSnoozed: "സ്നൂസ് ചെയ്തു",
+    reminderStopped: "നിർത്തി",
+  },
   onboarding: {
     whatToCallYou: "നിങ്ങളെ എന്ത് വിളിക്കണം?", fullName: "പൂർണ്ണ പേര്", fullNamePlaceholder: "നിങ്ങളുടെ പൂർണ്ണ പേര്",
     nickname: "പേര് (ഓപ്ഷണൽ)", nicknamePlaceholder: "സുഹൃത്തുകൾ നിങ്ങളെ എന്ത് വിളിക്കുന്നു",

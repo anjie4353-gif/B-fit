@@ -1,6 +1,14 @@
 export const kn = {
   common: { continue: "ಮುಂದುವರಿಸಿ", back: "ಹಿಂದೆ", save: "ಉಳಿಸಿ", cancel: "ರದ್ದು", loading: "ಲೋಡ್ ಆಗುತ್ತಿದೆ...", free: "ಉಚಿತ", private: "ಖಾಸಗಿ" },
-  language: { title: "ನಿಮ್ಮ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ", subtitle: "ಆದ್ಯತೆಯ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ. ನಂತರ ಪ್ರೊಫೈಲ್‌ನಲ್ಲಿ ಬದಲಾಯಿಸಬಹುದು." },
+  language: { title: "ನಿಮ್ಮ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ", subtitle: "ಸೆಟಪ್ ಸಮಯದಲ್ಲಿ ಒಮ್ಮೆ ಆಯ್ಕೆಮಾಡಿ. ನಂತರ ಪ್ರೊಫೈಲ್‌ನಲ್ಲಿ ಮಾತ್ರ ಬದಲಾಯಿಸಿ." },
+  plan: {
+    todayTitle: "ಇಂದಿನ ಯೋಜನೆ", validUntil: "ವರೆಗೆ ಮಾನ್ಯ", coachSummary: "ಕೋಚ್ ಸಾರಾಂಶ", remindersTitle: "ಜ್ಞಾಪನೆಗಳು",
+    preparing: "ನಿಮ್ಮ ಯೋಜನೆ ಸಿದ್ಧವಾಗುತ್ತಿದೆ…", regeneratePlan: "ಯೋಜನೆ ರಿಫ್ರೆಶ್", regenerating: "ರಿಫ್ರೆಶ್ ಆಗುತ್ತಿದೆ…",
+    regenerateFailed: "ಯೋಜನೆ ರಿಫ್ರೆಶ್ ಆಗಲಿಲ್ಲ.", expiredTitle: "3 ತಿಂಗಳ ಯೋಜನೆ ಮುಗಿದಿದೆ",
+    expiredBody: "ಪೂರ್ಣ ಸೆಟಪ್ ಇಲ್ಲದೆ ಯೋಜನೆ ರಿಫ್ರೆಶ್ ಮಾಡಿ.", reminderDone: "ಮುಗಿದಿದೆ", reminderSnooze: "ಸ್ನೂಜ್",
+    reminderStop: "ನಿಲ್ಲಿಸಿ", reminderSnoozeHint: "ಸ್ನೂಜ್ 10 ನಿಮಿಷದ ನಂತರ ಮತ್ತೆ ಜ್ಞಾಪಿಸುತ್ತದೆ.", reminderSnoozed: "ಸ್ನೂಜ್ ಮಾಡಲಾಗಿದೆ",
+    reminderStopped: "ನಿಲ್ಲಿಸಲಾಗಿದೆ",
+  },
   onboarding: {
     whatToCallYou: "ನಿಮ್ಮನ್ನು ಏನು ಕರೆಯಬೇಕು?", fullName: "ಪೂರ್ಣ ಹೆಸರು", fullNamePlaceholder: "ನಿಮ್ಮ ಪೂರ್ಣ ಹೆಸರು",
     nickname: "ಅಡ್ಡಹೆಸರು (ಐಚ್ಛಿಕ)", nicknamePlaceholder: "ಸ್ನೇಹಿತರು ನಿಮ್ಮನ್ನು ಏನು ಕರೆಯುತ್ತಾರೆ",

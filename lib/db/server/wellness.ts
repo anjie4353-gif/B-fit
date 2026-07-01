@@ -155,6 +155,7 @@ export function getWellnessReminderStates(
       attempts: r.attempts,
       lastFiredAt: r.last_fired_at,
       doneAt: r.done_at,
+      snoozedUntil: null,
     };
   }
   return out;

@@ -15,6 +15,11 @@ export function canEditProfile(registeredAt: string | undefined | null): boolean
   return daysSinceActivation(registeredAt) >= PROFILE_EDIT_LOCK_DAYS;
 }
 
+/** Language is always changeable from Profile after first setup. */
+export function canChangeLanguage(consentGiven: boolean | undefined): boolean {
+  return Boolean(consentGiven);
+}
+
 export function daysUntilEditUnlock(registeredAt: string | undefined | null): number {
   const elapsed = daysSinceActivation(registeredAt);
   return Math.max(0, PROFILE_EDIT_LOCK_DAYS - elapsed);

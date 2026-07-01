@@ -7,6 +7,10 @@ import {
   requestNotificationPermission as requestWebPermission,
   showReminderNotification,
 } from "@/lib/pwa/notifications";
+import {
+  cancelWebWaterReminders,
+  scheduleWebWaterReminders,
+} from "@/lib/notifications/web-scheduler";
 
 export const WATER_CHANNEL_ID = "water-reminders";
 export const PLAN_CHANNEL_ID = "plan-reminders";
@@ -128,6 +132,7 @@ export async function scheduleWaterNotifications(
 ): Promise<number> {
   if (!settings.enabled || settings.paused) {
     await cancelWaterNotifications();
+    cancelWebWaterReminders();
     return 0;
   }
 
@@ -177,7 +182,9 @@ export async function scheduleWaterNotifications(
     return notifications.length;
   }
 
-  return slots.length;
+  return scheduleWebWaterReminders(slots, (slot) =>
+    waterNotificationCopy(slot.ml, nickname, lang)
+  );
 }
 
 export async function showPlanNotification(
@@ -205,7 +212,10 @@ export async function showPlanNotification(
     });
     return;
   }
-  await showReminderNotification(title, body, tag);
+  await showReminderNotification(title, body, tag, {
+    reminderKey: tag,
+    kind: "plan",
+  });
 }
 
 export function registerNotificationListeners(

@@ -1,13 +1,17 @@
 "use client";
 
-import { Bell, Check } from "lucide-react";
+import { Bell, Check, Clock, Ban } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/components/i18n/i18n-provider";
 import { useUserStore } from "@/hooks/useUserStore";
 import { reminderKey, todayKey } from "@/lib/plan/reminder-logic";
 
 export function ReminderAlert() {
+  const { t } = useTranslation();
   const activeReminder = useUserStore((s) => s.activeReminder);
   const markReminderDone = useUserStore((s) => s.markReminderDone);
+  const snoozeReminder = useUserStore((s) => s.snoozeReminder);
+  const stopReminder = useUserStore((s) => s.stopReminder);
 
   if (!activeReminder) return null;
 
@@ -35,16 +39,35 @@ export function ReminderAlert() {
         <p className="mt-3 whitespace-pre-wrap text-sm text-accent-700 leading-relaxed">
           {activeReminder.message}
         </p>
-        <Button
-          className="mt-5 w-full"
-          size="lg"
-          onClick={() => markReminderDone(key)}
-        >
-          <Check className="h-5 w-5" />
-          Done
-        </Button>
+        <div className="mt-5 grid grid-cols-3 gap-2">
+          <Button
+            className="col-span-3"
+            size="lg"
+            onClick={() => markReminderDone(key)}
+          >
+            <Check className="h-5 w-5" />
+            {t("plan.reminderDone")}
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => snoozeReminder(key, 10)}
+          >
+            <Clock className="h-4 w-4" />
+            {t("plan.reminderSnooze")}
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            className="col-span-2"
+            onClick={() => stopReminder(key)}
+          >
+            <Ban className="h-4 w-4" />
+            {t("plan.reminderStop")}
+          </Button>
+        </div>
         <p className="mt-2 text-center text-[10px] text-accent-500">
-          Missed? We&apos;ll remind again in 5 min (up to 3 times).
+          {t("plan.reminderSnoozeHint")}
         </p>
       </div>
     </div>

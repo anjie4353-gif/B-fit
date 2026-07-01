@@ -22,7 +22,7 @@ Source files: user provides `image copy.png` (mark) and `image copy 2.png` (name
 
 1. **No white boxes** — remove white with ImageMagick `-fuzz 14% -transparent white -trim`
 2. **Wordmark = CSS text**, not pasted PNG (premium, scales cleanly)
-3. **App background blend** — PWA icons use `#f5f3ff` (same as `--background`)
+3. **Home screen tile** — PWA icons use navy `#002B5B` + teal ring (stands out like WhatsApp/YouTube app tiles)
 4. **Colors** — `lib/brand.ts`: `BRAND_NAVY`, `BRAND_TEAL`, tagline gray
 
 ## Home screen icon (WhatsApp-style)

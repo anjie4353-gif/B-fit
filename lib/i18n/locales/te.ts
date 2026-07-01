@@ -1,6 +1,14 @@
 export const te = {
   common: { continue: "కొనసాగించు", back: "వెనుకకు", save: "సేవ్", cancel: "రద్దు", loading: "లోడ్ అవుతోంది...", free: "ఉచితం", private: "ప్రైవేట్" },
-  language: { title: "మీ భాషను ఎంచుకోండి", subtitle: "మీ ఇష్టమైన భాష ఎంచుకోండి. తర్వాత ప్రొఫైల్‌లో మార్చవచ్చు." },
+  language: { title: "మీ భాషను ఎంచుకోండి", subtitle: "సెటప్ సమయంలో ఒకసారి ఎంచుకోండి. తర్వాత ప్రొఫైల్‌లో మాత్రమే మార్చండి." },
+  plan: {
+    todayTitle: "ఈరోజు ప్లాన్", validUntil: "చెల్లుబాటు వరకు", coachSummary: "కోచ్ సారాంశం", remindersTitle: "రిమైండర్లు",
+    preparing: "మీ ప్లాన్ సిద్ధమవుతోంది…", regeneratePlan: "ప్లాన్ రిఫ్రెష్", regenerating: "రిఫ్రెష్ అవుతోంది…",
+    regenerateFailed: "ప్లాన్ రిఫ్రెష్ కాలేదు. మళ్లీ ప్రయత్నించండి.", expiredTitle: "3 నెలల ప్లాన్ ముగిసింది",
+    expiredBody: "పూర్తి సెటప్ లేకుండా ప్లాన్ రిఫ్రెష్ చేయండి.", reminderDone: "పూర్తి", reminderSnooze: "స్నూజ్",
+    reminderStop: "ఆపు", reminderSnoozeHint: "స్నూజ్ 10 నిమిషాల తర్వాత మళ్లీ గుర్తు చేస్తుంది.", reminderSnoozed: "స్నూజ్ చేయబడింది",
+    reminderStopped: "ఆపివేయబడింది",
+  },
   onboarding: {
     whatToCallYou: "మిమ్మను ఏమని పిలవాలి?", fullName: "పూర్తి పేరు", fullNamePlaceholder: "మీ పూర్తి పేరు",
     nickname: "మారుపేరు (ఐచ్ఛికం)", nicknamePlaceholder: "స్నేహితులు మిమ్మను ఏమని పిలుస్తారు",

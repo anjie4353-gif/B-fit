@@ -176,10 +176,15 @@ export function OnboardingFlow() {
   const [submitting, setSubmitting] = useState(false);
   const [sleepDoctorAccepted, setSleepDoctorAccepted] = useState(false);
   const languageSet = useUserStore((s) => s.language);
+  const existingProfile = useUserStore((s) => s.profile);
 
   useEffect(() => {
+    if (existingProfile?.consentGiven) {
+      router.replace("/home");
+      return;
+    }
     if (!languageSet) router.replace("/language");
-  }, [languageSet, router]);
+  }, [languageSet, existingProfile, router]);
 
   const stepSequence = getStepSequence(form.gender);
   const step = stepSequence[stepIndex];

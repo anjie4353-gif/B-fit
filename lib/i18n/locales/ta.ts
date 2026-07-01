@@ -1,6 +1,14 @@
 export const ta = {
   common: { continue: "தொடரவும்", back: "பின்செல்", save: "சேமி", cancel: "ரத்து", loading: "ஏற்றுகிறது...", free: "இலவசம்", private: "தனிப்பட்ட" },
-  language: { title: "உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்", subtitle: "விருப்ப மொழியைத் தேர்ந்தெடுக்கவும். பிறகு சுயவிவரத்தில் மாற்றலாம்." },
+  language: { title: "உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்", subtitle: "அமைப்பின் போது ஒருமுறை தேர்ந்தெடுக்கவும். பிறகு சுயவிவரத்தில் மட்டும் மாற்றவும்." },
+  plan: {
+    todayTitle: "இன்றைய திட்டம்", validUntil: "செல்லுபடியாகும் வரை", coachSummary: "பயிற்சியாளர் சுருக்கம்", remindersTitle: "நினைவூட்டல்கள்",
+    preparing: "உங்கள் திட்டம் தயாராகிறது…", regeneratePlan: "திட்டம் புதுப்பி", regenerating: "புதுப்பிக்கப்படுகிறது…",
+    regenerateFailed: "திட்டம் புதுப்பிக்க முடியவில்லை.", expiredTitle: "3 மாத திட்டம் முடிந்தது",
+    expiredBody: "முழு அமைப்பு இல்லாமல் திட்டம் புதுப்பிக்கவும்.", reminderDone: "முடிந்தது", reminderSnooze: "ஸ்நூஸ்",
+    reminderStop: "நிறுத்து", reminderSnoozeHint: "ஸ்நூஸ் 10 நிமிடத்தில் மீண்டும் நினைவூட்டும்.", reminderSnoozed: "ஸ்நூஸ் செய்யப்பட்டது",
+    reminderStopped: "நிறுத்தப்பட்டது",
+  },
   onboarding: {
     whatToCallYou: "உங்களை என்ன அழைப்பது?", fullName: "முழு பெயர்", fullNamePlaceholder: "உங்கள் முழு பெயர்",
     nickname: "புனைப்பெயர் (விருப்பம்)", nicknamePlaceholder: "நண்பர்கள் உங்களை என்ன அழைக்கிறார்கள்",

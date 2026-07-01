@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { WaterReminderPanel } from "@/components/hydration/water-reminder-panel";
 import {
+  canChangeLanguage,
   canEditProfile,
   daysUntilEditUnlock,
   getEditLockMessage,
@@ -54,6 +55,7 @@ export default function ProfilePage() {
   const registeredAt =
     profile.registeredAt ?? profile.onboardedAt ?? firstInstallDate;
   const editable = canEditProfile(registeredAt);
+  const languageEditable = canChangeLanguage(profile.consentGiven);
   const daysLeft = daysUntilEditUnlock(registeredAt);
   const settings = profile.waterReminderSettings;
   const name = displayName(profile.fullName, profile.nickname);
@@ -86,7 +88,7 @@ export default function ProfilePage() {
   const handleLogout = () => {
     if (confirm(t("profile.logoutConfirm"))) {
       clearSession();
-      router.replace("/language");
+      router.replace("/");
     }
   };
 
@@ -199,7 +201,7 @@ export default function ProfilePage() {
           icon={Globe}
           label={t("profile.language")}
           value={
-            editable ? (
+            languageEditable ? (
               <select
                 className="glass-input h-10 w-full rounded-xl px-3 text-sm"
                 value={language}

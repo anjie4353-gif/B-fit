@@ -10,17 +10,28 @@ const iconsDir = join(root, "public", "icons");
 const publicDir = join(root, "public");
 const androidRes = join(root, "android", "app", "src", "main", "res");
 
-const APP_BG = { r: 245, g: 243, b: 255, alpha: 1 };
+/** Navy brand tile — stands out on home screen like WhatsApp green / YouTube red */
+const APP_BG = { r: 0, g: 43, b: 91, alpha: 1 };
+
 const markPath = join(brandDir, "logo-mark.png");
 const markBuffer = readFileSync(markPath);
 
-async function makeAppIcon(size, outPath, logoScale = 0.62) {
+async function makeTealRing(size) {
+  const ringSize = Math.round(size * 0.78);
+  const svg = `<svg width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="${size / 2}" cy="${size / 2}" r="${ringSize / 2}" fill="rgba(0,180,216,0.28)"/>
+  </svg>`;
+  return sharp(Buffer.from(svg)).png().toBuffer();
+}
+
+async function makeAppIcon(size, outPath, logoScale = 0.58) {
   const logoPx = Math.round(size * logoScale);
   const resized = await sharp(markBuffer)
     .resize(logoPx, null, { fit: "inside" })
     .png()
     .toBuffer();
   const meta = await sharp(resized).metadata();
+  const ring = await makeTealRing(size);
 
   await sharp({
     create: {
@@ -31,6 +42,7 @@ async function makeAppIcon(size, outPath, logoScale = 0.62) {
     },
   })
     .composite([
+      { input: ring, left: 0, top: 0 },
       {
         input: resized,
         left: Math.round((size - (meta.width ?? logoPx)) / 2),

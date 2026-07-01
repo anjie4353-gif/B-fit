@@ -72,9 +72,18 @@ export function NotificationBootstrap() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    const skipWater = useUserStore.getState().skipWaterReminder;
     const handler = (event: MessageEvent) => {
       if (event.data?.type === "WATER_CONSUMED") {
         markWaterConsumed(event.data.glasses ?? 1);
+        return;
+      }
+      if (
+        event.data?.type === "REMINDER_ACTION" &&
+        event.data.kind === "water"
+      ) {
+        if (event.data.action === "done") markWaterConsumed(1);
+        else if (event.data.action === "stop") skipWater();
       }
     };
     navigator.serviceWorker?.addEventListener("message", handler);

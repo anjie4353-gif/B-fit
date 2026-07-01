@@ -32,23 +32,40 @@ export function playReminderSound(): void {
   }
 }
 
+export interface ReminderNotificationOptions {
+  reminderKey?: string;
+  kind?: "plan" | "water";
+}
+
 export async function showReminderNotification(
   title: string,
   body: string,
-  tag: string
+  tag: string,
+  options?: ReminderNotificationOptions
 ): Promise<void> {
   if (typeof window === "undefined" || Notification.permission !== "granted") {
     return;
   }
+  const payload = {
+    body: body.slice(0, 180),
+    tag,
+    icon: PWA_ICON_URLS.icon192,
+    badge: PWA_ICON_URLS.icon192,
+    requireInteraction: true,
+    data: {
+      reminderKey: options?.reminderKey ?? tag,
+      kind: options?.kind ?? "plan",
+    },
+    actions: [
+      { action: "done", title: "Done" },
+      { action: "snooze", title: "Snooze" },
+      { action: "stop", title: "Stop" },
+    ],
+  } as NotificationOptions;
+
   try {
     const reg = await navigator.serviceWorker.ready;
-    await reg.showNotification(title, {
-      body: body.slice(0, 180),
-      tag,
-      icon: PWA_ICON_URLS.icon192,
-      badge: PWA_ICON_URLS.icon192,
-      requireInteraction: true,
-    } as NotificationOptions);
+    await reg.showNotification(title, payload);
   } catch {
     new Notification(title, { body: body.slice(0, 180), tag });
   }

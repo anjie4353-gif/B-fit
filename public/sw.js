@@ -1,4 +1,4 @@
-const CACHE = "b-fit-v1.3.3";
+const CACHE = "b-fit-v1.3.4";
 
 // Do NOT precache icons/manifest — old users need fresh icons from network
 const PRECACHE = ["/"];
@@ -54,6 +54,28 @@ self.addEventListener("fetch", (event) => {
 
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
+  const action = event.action;
+  const data = event.notification.data || {};
+
+  if (action === "done" || action === "snooze" || action === "stop") {
+    event.waitUntil(
+      self.clients
+        .matchAll({ type: "window", includeUncontrolled: true })
+        .then((clients) => {
+          const msg = {
+            type: "REMINDER_ACTION",
+            action,
+            key: data.reminderKey,
+            kind: data.kind || "plan",
+          };
+          clients.forEach((client) => client.postMessage(msg));
+          if (clients.length > 0) return clients[0].focus();
+          return self.clients.openWindow("/plan");
+        })
+    );
+    return;
+  }
+
   event.waitUntil(
     self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((clients) => {
       if (clients.length > 0) {

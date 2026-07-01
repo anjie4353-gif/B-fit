@@ -197,6 +197,7 @@ export interface ReminderInstanceState {
   attempts: number;
   lastFiredAt: string | null;
   doneAt: string | null;
+  snoozedUntil: string | null;
 }
 
 export interface ActiveReminderAlert {

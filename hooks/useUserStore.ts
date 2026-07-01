@@ -45,6 +45,8 @@ interface UserStore {
   setReminderState: (key: string, state: ReminderInstanceState) => void;
   setActiveReminder: (alert: ActiveReminderAlert | null) => void;
   markReminderDone: (key: string) => void;
+  snoozeReminder: (key: string, minutes?: number) => void;
+  stopReminder: (key: string) => void;
   addDailyLog: (log: DailyLog) => void;
   addChatMessage: (message: ChatMessage) => void;
   addWhatsAppMessage: (message: WhatsAppMessage) => void;
@@ -229,10 +231,51 @@ export const useUserStore = create<UserStore>()(
                 attempts: 0,
                 lastFiredAt: null,
                 doneAt: null,
+                snoozedUntil: null,
                 status: "pending",
               }),
               status: "done",
               doneAt: new Date().toISOString(),
+              snoozedUntil: null,
+            },
+          },
+          activeReminder: null,
+        })),
+
+      snoozeReminder: (key, minutes = 10) =>
+        set((s) => ({
+          reminderStates: {
+            ...s.reminderStates,
+            [key]: {
+              ...(s.reminderStates[key] ?? {
+                attempts: 0,
+                lastFiredAt: null,
+                doneAt: null,
+                snoozedUntil: null,
+                status: "pending",
+              }),
+              snoozedUntil: new Date(
+                Date.now() + minutes * 60 * 1000
+              ).toISOString(),
+            },
+          },
+          activeReminder: null,
+        })),
+
+      stopReminder: (key) =>
+        set((s) => ({
+          reminderStates: {
+            ...s.reminderStates,
+            [key]: {
+              ...(s.reminderStates[key] ?? {
+                attempts: 0,
+                lastFiredAt: null,
+                doneAt: null,
+                snoozedUntil: null,
+                status: "pending",
+              }),
+              status: "stopped",
+              snoozedUntil: null,
             },
           },
           activeReminder: null,

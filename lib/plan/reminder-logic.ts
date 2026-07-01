@@ -23,6 +23,7 @@ export function defaultReminderState(): ReminderInstanceState {
     attempts: 0,
     lastFiredAt: null,
     doneAt: null,
+    snoozedUntil: null,
   };
 }
 
@@ -40,6 +41,12 @@ export function shouldFireReminder(
 ): boolean {
   if (state.status === "done" || state.status === "stopped") return false;
   if (state.attempts >= REMINDER_MAX_ATTEMPTS) return false;
+  if (
+    state.snoozedUntil &&
+    now.getTime() < new Date(state.snoozedUntil).getTime()
+  ) {
+    return false;
+  }
 
   const due = dueDateTime(slot.time, now);
   if (now.getTime() < due.getTime()) return false;
@@ -76,6 +83,7 @@ export function afterFireState(
     ...state,
     attempts,
     lastFiredAt: now.toISOString(),
+    snoozedUntil: null,
     status: attempts >= REMINDER_MAX_ATTEMPTS ? "stopped" : state.status,
   };
 }

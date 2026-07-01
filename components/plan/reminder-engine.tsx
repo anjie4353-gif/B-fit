@@ -22,7 +22,24 @@ export function ReminderEngine() {
   const reminderStates = useUserStore((s) => s.reminderStates);
   const setReminderState = useUserStore((s) => s.setReminderState);
   const setActiveReminder = useUserStore((s) => s.setActiveReminder);
+  const markReminderDone = useUserStore((s) => s.markReminderDone);
+  const snoozeReminder = useUserStore((s) => s.snoozeReminder);
+  const stopReminder = useUserStore((s) => s.stopReminder);
   const firing = useRef(false);
+
+  useEffect(() => {
+    const handler = (event: MessageEvent) => {
+      if (event.data?.type !== "REMINDER_ACTION") return;
+      if (event.data.kind !== "plan") return;
+      const key = event.data.key as string;
+      if (!key) return;
+      if (event.data.action === "done") markReminderDone(key);
+      else if (event.data.action === "snooze") snoozeReminder(key, 10);
+      else if (event.data.action === "stop") stopReminder(key);
+    };
+    navigator.serviceWorker?.addEventListener("message", handler);
+    return () => navigator.serviceWorker?.removeEventListener("message", handler);
+  }, [markReminderDone, snoozeReminder, stopReminder]);
 
   useEffect(() => {
     if (!profile?.consentGiven || !wellnessPlan) return;
@@ -53,7 +70,16 @@ export function ReminderEngine() {
 
     tick();
     const interval = setInterval(tick, REMINDER_TICK_MS);
-    return () => clearInterval(interval);
+    const onResume = () => {
+      if (document.visibilityState === "visible") void tick();
+    };
+    window.addEventListener("focus", onResume);
+    document.addEventListener("visibilitychange", onResume);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("focus", onResume);
+      document.removeEventListener("visibilitychange", onResume);
+    };
   }, [profile, wellnessPlan, reminderStates, setReminderState, setActiveReminder]);
 
   useEffect(() => {
