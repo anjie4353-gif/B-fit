@@ -31,6 +31,16 @@ export const en = {
     nameRequired: "Please enter your full name",
     waterGoalRequired: "Enter a goal between 4 and 16 glasses",
   },
+  coach: {
+    doctorAdviceTitle: "Doctor-coach recommendation",
+    doctorRecommendation: "Recommended schedule",
+    applyDoctorRecommendation: "Use doctor recommendation",
+  },
+  pwa: {
+    updateTitle: "New features available",
+    updateBody: "Tap Update to get the latest B-Fit improvements — no reinstall needed.",
+    updateButton: "Update app",
+  },
   home: {
     goodMorning: "Good morning",
     goodAfternoon: "Good afternoon",

@@ -11,6 +11,8 @@ export const te = {
     notificationsSubtitle: "యాప్ మూసివేసినా సమయానికి నీటి గుర్తుకు రావడానికి అనుమతి ఇవ్వండి.",
     nameRequired: "దయచేసి పూర్తి పేరు నమోదు చేయండి", waterGoalRequired: "4 నుండి 16 గ్లాసుల మధ్య లక్ష్యం నమోదు చేయండి",
   },
+  coach: { doctorAdviceTitle: "డాక్టర్-కోచ్ సలహా", doctorRecommendation: "సిఫార్సు షెడ్యూల్", applyDoctorRecommendation: "డాక్టర్ సిఫార్సు వాడండి" },
+  pwa: { updateTitle: "కొత్త ఫీచర్లు అందుబాటులో", updateBody: "రీఇన్‌స్టాల్ అవసరం లేకుండా అప్‌డేట్ కోసం బటన్ నొక్కండి.", updateButton: "యాప్ అప్‌డేట్ చేయండి" },
   home: {
     goodMorning: "శుభోదయం", goodAfternoon: "శుభ మధ్యాహ్నం", goodEvening: "శుభ సాయంత్రం", hub: "హబ్",
     tapCards: "అంతర్దృష్టి కోసం కార్డులు ట్యాప్ చేయండి", glassesToday: "ఈరోజు గ్లాసులు", stepsToday: "ఈరోజు అడుగులు",

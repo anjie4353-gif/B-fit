@@ -22,6 +22,8 @@ import { bootstrapNotificationsOnOnboarding } from "@/components/notifications/n
 import { useTranslation } from "@/components/i18n/i18n-provider";
 import { syncWaterNotificationSchedule } from "@/lib/hydration/water-reminders";
 import { calculateDailyWaterGlasses } from "@/lib/hydration/water-goal";
+import { assessSleepSchedule } from "@/lib/coach/health-advisor";
+import { DoctorAdviceCard } from "@/components/coach/doctor-advice-card";
 import { syncUserToServer } from "@/lib/sync-user";
 import type { WaterReminderSettings } from "@/types";
 import {
@@ -172,6 +174,7 @@ export function OnboardingFlow() {
   const [form, setForm] = useState<FormData>(initialForm);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
+  const [sleepDoctorAccepted, setSleepDoctorAccepted] = useState(false);
   const languageSet = useUserStore((s) => s.language);
 
   useEffect(() => {
@@ -192,6 +195,30 @@ export function OnboardingFlow() {
       workType: form.workType,
     });
   }, [form.weight, form.gender, form.activityLevel, form.workType]);
+
+  const sleepAssessment = useMemo(() => {
+    if (!form.gender) return null;
+    return assessSleepSchedule(
+      form.wakeTime,
+      form.sleepTime,
+      form.gender as Gender
+    );
+  }, [form.wakeTime, form.sleepTime, form.gender]);
+
+  const applySleepRecommendation = () => {
+    if (!sleepAssessment) return;
+    if (sleepAssessment.recommendedWake) {
+      update("wakeTime", sleepAssessment.recommendedWake);
+    }
+    update("sleepTime", sleepAssessment.recommendedSleep);
+    setSleepDoctorAccepted(true);
+    setErrors((prev) => {
+      const next = { ...prev };
+      delete next.sleepTime;
+      delete next.sleepDoctor;
+      return next;
+    });
+  };
 
   const update = <K extends keyof FormData>(key: K, value: FormData[K]) => {
     setForm((prev) => {
@@ -217,6 +244,10 @@ export function OnboardingFlow() {
         next.pregnancyStatus = "";
       }
 
+      if (key === "wakeTime" || key === "sleepTime") {
+        setSleepDoctorAccepted(false);
+      }
+
       return next;
     });
     setErrors((prev) => {
@@ -240,6 +271,13 @@ export function OnboardingFlow() {
         if (form.gender !== "male") {
           if (!form.wakeTime) e.wakeTime = "Required";
           if (!form.sleepTime) e.sleepTime = "Required";
+          if (
+            sleepAssessment &&
+            !sleepAssessment.isHealthy &&
+            !sleepDoctorAccepted
+          ) {
+            e.sleepDoctor = sleepAssessment.doctorMessage;
+          }
         }
         break;
       }
@@ -305,6 +343,13 @@ export function OnboardingFlow() {
       case 15:
         if (!form.wakeTime) e.wakeTime = "Set wake time";
         if (!form.sleepTime) e.sleepTime = "Set sleep time";
+        if (
+          sleepAssessment &&
+          !sleepAssessment.isHealthy &&
+          !sleepDoctorAccepted
+        ) {
+          e.sleepDoctor = sleepAssessment.doctorMessage;
+        }
         break;
       case 16:
         if (!form.dietType) e.dietType = "Select diet type";
@@ -344,9 +389,17 @@ export function OnboardingFlow() {
       workType: form.workType,
     });
 
+    const sleepForProfile =
+      sleepAssessment && !sleepAssessment.isHealthy
+        ? {
+            wakeTime: sleepAssessment.recommendedWake ?? form.wakeTime,
+            sleepTime: sleepAssessment.recommendedSleep,
+          }
+        : { wakeTime: form.wakeTime, sleepTime: form.sleepTime };
+
     const waterSettings: WaterReminderSettings = {
-      wakeTime: form.wakeTime,
-      sleepTime: form.sleepTime,
+      wakeTime: sleepForProfile.wakeTime,
+      sleepTime: sleepForProfile.sleepTime,
       dailyGlasses,
       mlPerGlass: 250,
       enabled: true,
@@ -390,8 +443,8 @@ export function OnboardingFlow() {
             region: getRegionFromState(form.state),
             occupation: form.occupation.trim(),
             workType: form.workType as WorkType,
-            wakeTime: form.wakeTime,
-            sleepTime: form.sleepTime,
+            wakeTime: sleepForProfile.wakeTime,
+            sleepTime: sleepForProfile.sleepTime,
             dietType: form.dietType as DietType,
             medicalConditions: form.medicalConditions.trim() || undefined,
             fitnessGoal: form.fitnessGoal as FitnessGoal,
@@ -564,6 +617,17 @@ export function OnboardingFlow() {
                       onChange={(e) => update("sleepTime", e.target.value)}
                     />
                   </div>
+                  {sleepAssessment && !sleepAssessment.isHealthy && (
+                    <DoctorAdviceCard
+                      message={sleepAssessment.doctorMessage}
+                      recommendedSleep={sleepAssessment.recommendedSleep}
+                      recommendedWake={sleepAssessment.recommendedWake}
+                      onApply={applySleepRecommendation}
+                    />
+                  )}
+                  {errors.sleepDoctor && (
+                    <p className="text-sm text-red-500">{errors.sleepDoctor}</p>
+                  )}
                 </>
               )}
               <div className="glass rounded-2xl border border-white/80 p-4 space-y-2">
@@ -861,8 +925,19 @@ export function OnboardingFlow() {
               <p className="text-xs text-accent-400">
                 Ideal: wake 5:30-6:30 AM · sleep 10:30 PM · 7-9 hrs rest
               </p>
+              {sleepAssessment && !sleepAssessment.isHealthy && (
+                <DoctorAdviceCard
+                  message={sleepAssessment.doctorMessage}
+                  recommendedSleep={sleepAssessment.recommendedSleep}
+                  recommendedWake={sleepAssessment.recommendedWake}
+                  onApply={applySleepRecommendation}
+                />
+              )}
               {errors.wakeTime && (
                 <p className="text-sm text-red-500">{errors.wakeTime}</p>
+              )}
+              {errors.sleepDoctor && (
+                <p className="text-sm text-red-500">{errors.sleepDoctor}</p>
               )}
             </div>
           )}

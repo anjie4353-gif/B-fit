@@ -46,10 +46,23 @@ function slot(
   };
 }
 
+function getWakeSleep(profile: UserProfile): { wake: string; sleep: string } {
+  const settings = profile.waterReminderSettings;
+  if (profile.gender === "male" && profile.maleProfile) {
+    return {
+      wake: profile.maleProfile.wakeTime || settings?.wakeTime || "06:00",
+      sleep: profile.maleProfile.sleepTime || settings?.sleepTime || "22:30",
+    };
+  }
+  return {
+    wake: settings?.wakeTime || "06:00",
+    sleep: settings?.sleepTime || "22:30",
+  };
+}
+
 export function buildDailyReminders(profile: UserProfile): PlanReminderSlot[] {
   if (profile.gender === "male" && profile.maleProfile) {
-    const wake = profile.maleProfile.wakeTime || "06:00";
-    const sleep = profile.maleProfile.sleepTime || "22:30";
+    const { wake, sleep } = getWakeSleep(profile);
     return [
       slot("wake_up", wake, profile),
       slot("breakfast", addMinutes(wake, 90), profile),
@@ -64,16 +77,17 @@ export function buildDailyReminders(profile: UserProfile): PlanReminderSlot[] {
     ];
   }
 
+  const { wake, sleep } = getWakeSleep(profile);
   return [
-    slot("wake_up", "06:00", profile),
-    slot("breakfast", "07:30", profile),
-    slot("hydration", "10:00", profile),
-    slot("lunch", "13:00", profile),
-    slot("snack", "16:00", profile),
-    slot("activity", "18:00", profile),
-    slot("dinner", "20:00", profile),
-    slot("sleep_prep", "22:00", profile),
-    slot("sleep", "22:30", profile),
+    slot("wake_up", wake, profile),
+    slot("breakfast", addMinutes(wake, 90), profile),
+    slot("hydration", addMinutes(wake, 240), profile),
+    slot("lunch", addMinutes(wake, 420), profile),
+    slot("snack", addMinutes(wake, 600), profile),
+    slot("activity", addMinutes(wake, 720), profile),
+    slot("dinner", addMinutes(sleep, -150), profile),
+    slot("sleep_prep", addMinutes(sleep, -30), profile),
+    slot("sleep", sleep, profile),
   ];
 }
 

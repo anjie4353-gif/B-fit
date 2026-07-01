@@ -1,5 +1,6 @@
 import { BHARAT_MEN_SYSTEM_PROMPT } from "@/lib/bharat-coach";
 import { HERWELL_SYSTEM_PROMPT } from "@/lib/herwell-coach";
+import { DOCTOR_COACH_RULES } from "@/lib/coach/doctor-rules";
 
 const MALE_EMERGENCY_PATTERNS = [
   /severe\s+bleeding/i,
@@ -47,8 +48,8 @@ export function getEmergencyResponse(gender?: string): string {
 }
 
 export function getSystemPrompt(gender?: string): string {
-  if (gender === "male") return BHARAT_MEN_SYSTEM_PROMPT;
-  return HERWELL_SYSTEM_PROMPT;
+  const base = gender === "male" ? BHARAT_MEN_SYSTEM_PROMPT : HERWELL_SYSTEM_PROMPT;
+  return `${base}\n\n${DOCTOR_COACH_RULES}`;
 }
 
 export const MEDICAL_DISCLAIMER =

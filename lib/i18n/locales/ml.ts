@@ -11,6 +11,8 @@ export const ml = {
     notificationsSubtitle: "ആപ്പ് അടച്ചിരിക്കുമ്പോഴും സമയത്ത് ഓർമ്മപ്പെടുത്തൽ ലഭിക്കാൻ അനുവദിക്കുക.",
     nameRequired: "പൂർണ്ണ പേര് നൽകുക", waterGoalRequired: "4 മുതൽ 16 ഗ്ലാസ് ഇടയിൽ ലക്ഷ്യം നൽകുക",
   },
+  coach: { doctorAdviceTitle: "ഡോക്ടർ-കോച്ച് ഉപദേശം", doctorRecommendation: "ശുപാർശിത സമയം", applyDoctorRecommendation: "ഡോക്ടറുടെ ശുപാർശ ഉപയോഗിക്കുക" },
+  pwa: { updateTitle: "പുതിയ ഫീച്ചറുകൾ ലഭ്യം", updateBody: "റീഇൻസ്റ്റാൾ ചെയ്യാതെ അപ്ഡേറ്റ് ചെയ്യാൻ ബട്ടൺ അമർത്തുക.", updateButton: "ആപ്പ് അപ്ഡേറ്റ്" },
   home: {
     goodMorning: "സുപ്രഭാതം", goodAfternoon: "ശുഭ മധ്യാഹ്നം", goodEvening: "ശുഭ സന്ധ്യ", hub: "ഹബ്",
     tapCards: "ഉൾക്കാഴ്ചയ്ക്ക് കാർഡുകൾ ടാപ്പ് ചെയ്യുക", glassesToday: "ഇന്നത്തെ ഗ്ലാസ്", stepsToday: "ഇന്നത്തെ നടപ്പ്",

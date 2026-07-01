@@ -11,6 +11,8 @@ export const ta = {
     notificationsSubtitle: "பயன்பாடு மூடியிருந்தாலும் சரியான நேரத்தில் நினைவூட்டல் பெற அனுமதி கொடுங்கள்.",
     nameRequired: "முழு பெயரை உள்ளிடவும்", waterGoalRequired: "4 முதல் 16 குவளைகள் இடையில் இலக்கு உள்ளிடவும்",
   },
+  coach: { doctorAdviceTitle: "மருத்துவர்-பயிற்சியாளர் ஆலோசனை", doctorRecommendation: "பரிந்துரைக்கப்பட்ட நேரம்", applyDoctorRecommendation: "மருத்துவர் பரிந்துரையைப் பயன்படுத்து" },
+  pwa: { updateTitle: "புதிய அம்சங்கள் கிடைக்கின்றன", updateBody: "மீண்டும் நிறுவாமல் புதுப்பிக்க பொத்தானை அழுத்தவும்.", updateButton: "ஆப் புதுப்பி" },
   home: {
     goodMorning: "காலை வணக்கம்", goodAfternoon: "மதிய வணக்கம்", goodEvening: "மாலை வணக்கம்", hub: "மையம்",
     tapCards: "தகவலுக்கு அட்டைகளைத் தட்டவும்", glassesToday: "இன்றைய குவளைகள்", stepsToday: "இன்றைய படிகள்",

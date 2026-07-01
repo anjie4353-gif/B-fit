@@ -11,6 +11,8 @@ export const hi = {
     notificationsSubtitle: "ऐप बंद होने पर भी समय पर पानी की याद दिलाने के लिए अनुमति दें।",
     nameRequired: "कृपया अपना पूरा नाम दर्ज करें", waterGoalRequired: "4 से 16 गिलास के बीच लक्ष्य दर्ज करें",
   },
+  coach: { doctorAdviceTitle: "डॉक्टर-कोच की सलाह", doctorRecommendation: "अनुशंसित समय", applyDoctorRecommendation: "डॉक्टर की सलाह अपनाएं" },
+  pwa: { updateTitle: "नई सुविधाएं उपलब्ध", updateBody: "बिना पुनः इंस्टॉल किए अपडेट के लिए बटन दबाएं।", updateButton: "ऐप अपडेट करें" },
   home: {
     goodMorning: "सुप्रभात", goodAfternoon: "नमस्कार", goodEvening: "शुभ संध्या", hub: "हब",
     tapCards: "जानकारी के लिए कार्ड टैप करें", glassesToday: "आज के गिलास", stepsToday: "आज के कदम",

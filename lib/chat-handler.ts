@@ -7,7 +7,12 @@ import {
   generateDailyHealthSummary,
   generateMenDailyPlan,
   generateWomenDailyPlan,
+  generateDoctorHabitAdvice,
 } from "@/services/groq";
+import {
+  detectUnhealthyHabit,
+  getStaticDoctorResponse,
+} from "@/lib/coach/health-advisor";
 import {
   detectEmergency,
   isSafetyConfirmation,
@@ -52,6 +57,21 @@ export async function handleCoachMessage(
   const lower = trimmed.toLowerCase();
   const isMale = profile?.gender === "male";
   let response: string;
+
+  const unhealthyHabit = detectUnhealthyHabit(trimmed);
+  if (unhealthyHabit) {
+    response = getStaticDoctorResponse(
+      unhealthyHabit,
+      profile?.gender === "male" ? "male" : "female"
+    );
+    try {
+      const aiLayer = await generateDoctorHabitAdvice(trimmed, profile);
+      if (aiLayer && aiLayer.length > 80) response = aiLayer;
+    } catch {
+      /* keep static doctor response */
+    }
+    return { response };
+  }
 
   if (
     lower.includes("daily plan") ||

@@ -11,6 +11,8 @@ export const kn = {
     notificationsSubtitle: "ಅಪ್ಲಿಕೇಶನ್ ಮುಚ್ಚಿದರೂ ಸರಿಯಾದ ಸಮಯಕ್ಕೆ ಜ್ಞಾಪನೆ ಪಡೆಯಲು ಅನುಮತಿ ನೀಡಿ.",
     nameRequired: "ದಯವಿಟ್ಟು ಪೂರ್ಣ ಹೆಸರು ನಮೂದಿಸಿ", waterGoalRequired: "4 ರಿಂದ 16 ಗ್ಲಾಸ್ ನಡುವೆ ಗುರಿ ನಮೂದಿಸಿ",
   },
+  coach: { doctorAdviceTitle: "ವೈದ್ಯ-ಕೋಚ್ ಸಲಹೆ", doctorRecommendation: "ಶಿಫಾರಸು ವೇಳಾಪಟ್ಟಿ", applyDoctorRecommendation: "ವೈದ್ಯರ ಶಿಫಾರಸು ಬಳಸಿ" },
+  pwa: { updateTitle: "ಹೊಸ ವೈಶಿಷ್ಟ್ಯಗಳು ಲಭ್ಯ", updateBody: "ಮರುಇನ್‌ಸ್ಟಾಲ್ ಇಲ್ಲದೆ ಅಪ್‌ಡೇಟ್ ಮಾಡಲು ಬಟನ್ ಒತ್ತಿ.", updateButton: "ಆ್ಯಪ್ ಅಪ್‌ಡೇಟ್" },
   home: {
     goodMorning: "ಶುಭೋದಯ", goodAfternoon: "ಶುಭ ಮಧ್ಯಾಹ್ನ", goodEvening: "ಶುಭ ಸಂಜೆ", hub: "ಹಬ್",
     tapCards: "ಒಳನೋಟಕ್ಕಾಗಿ ಕಾರ್ಡ್‌ಗಳನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ", glassesToday: "ಇಂದಿನ ಗ್ಲಾಸ್", stepsToday: "ಇಂದಿನ ಹೆಜ್ಜೆಗಳು",

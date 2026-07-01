@@ -10,6 +10,10 @@ import {
   getSystemPrompt,
   getPCODSafetyPrompt,
 } from "@/lib/safety";
+import {
+  DOCTOR_MEAL_TIMING_RULES,
+  DOCTOR_SLEEP_RULES,
+} from "@/lib/coach/doctor-rules";
 import type { UserProfile } from "@/types";
 
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
@@ -39,7 +43,7 @@ async function callGroq(
       model: MODEL,
       messages,
       max_tokens: maxTokens,
-      temperature: 0.7,
+      temperature: 0.55,
     }),
   });
 
@@ -193,6 +197,28 @@ export async function generateWomenDailyPlan(
         "Create my daily wellness plan: Today's Wellness Score, Hydration Goal, Movement Goal, Nutrition Recommendation, Cycle Update, Sleep Goal, Motivation Message. Indian regional foods. Under 150 words.",
     },
   ]);
+}
+
+export async function generateDoctorHabitAdvice(
+  userMessage: string,
+  profile?: Partial<UserProfile>
+): Promise<string> {
+  const isMale = profile?.gender === "male";
+  const pcodRules = isMale ? "" : getPCODSafetyPrompt(hasPcos(profile));
+
+  return callGroq(
+    [
+      {
+        role: "system",
+        content: `${getSystemPrompt(profile?.gender)}${pcodRules}${DOCTOR_MEAL_TIMING_RULES}${DOCTOR_SLEEP_RULES}${buildUserContext(profile)}`,
+      },
+      {
+        role: "user",
+        content: `User habit question: "${userMessage}"\n\nRespond as a firm caring doctor-coach. Refuse unhealthy choices. Explain why. Give specific better timing/plan. Under 180 words.`,
+      },
+    ],
+    280
+  );
 }
 
 export async function generateChatResponse(

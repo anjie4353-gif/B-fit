@@ -15,6 +15,7 @@ import { useUserStore } from "@/hooks/useUserStore";
 import { ReminderEngine } from "@/components/plan/reminder-engine";
 import { ReminderAlert } from "@/components/plan/reminder-alert";
 import { MeshBackground } from "@/components/layout/mesh-background";
+import { UpdatePrompt } from "@/components/pwa/update-prompt";
 import { useTranslation } from "@/components/i18n/i18n-provider";
 
 const baseNavItems = [
@@ -52,6 +53,7 @@ export function MobileShell({ children }: { children: React.ReactNode }) {
       <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col">
         <ReminderEngine />
         <ReminderAlert />
+        <UpdatePrompt />
         <main className={cn("flex-1", !hideNav && "pb-24")}>{children}</main>
 
         {!hideNav && (
