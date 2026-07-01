@@ -29,6 +29,10 @@ git remote add origin https://github.com/anjie4353-gif/B-fit.git
 git push -u origin master
 ```
 
+## Vercel Hobby cron limit
+
+`vercel.json` cron must run **once per day** on Hobby (`0 6 * * *`). PWA reminders use client-side notifications; server cron is WhatsApp-only.
+
 ## Vercel production deploy
 
 ```bash
