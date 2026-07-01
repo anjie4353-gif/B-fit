@@ -40,6 +40,7 @@ export const en = {
     updateTitle: "New features available",
     updateBody: "Tap Update to get the latest B-Fit improvements — no reinstall needed.",
     updateButton: "Update app",
+    updating: "Updating…",
   },
   home: {
     goodMorning: "Good morning",

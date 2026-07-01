@@ -61,6 +61,15 @@ Requirements for install prompt:
 - `manifest.webmanifest` + `/sw.js` registered via `PwaProvider`
 - Icons in `public/icons/`
 
+## PWA update button
+
+If "Update app" seems stuck:
+- `applyAppUpdate()` must post `SKIP_WAITING` to waiting worker
+- SW must `skipWaiting()` + `clients.claim()` and reply `SW_ACTIVATED`
+- 3.5s timeout always hard-reloads (never leave user stuck)
+- `/sw.js` has `Cache-Control: no-cache` in `next.config.ts`
+- Bump `APP_VERSION` + `CACHE` in `public/sw.js` on each deploy
+
 ## Post-deploy verify
 
 - `/` → language → onboarding → home

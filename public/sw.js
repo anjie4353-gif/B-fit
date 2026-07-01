@@ -1,4 +1,4 @@
-const CACHE = "b-fit-v1.3.1";
+const CACHE = "b-fit-v1.3.2";
 const PRECACHE = [
   "/",
   "/manifest.webmanifest",
@@ -18,9 +18,14 @@ self.addEventListener("install", (event) => {
 });
 
 self.addEventListener("message", (event) => {
-  if (event.data?.type === "SKIP_WAITING") {
-    self.skipWaiting();
-  }
+  if (event.data?.type !== "SKIP_WAITING") return;
+  event.waitUntil(
+    self.skipWaiting().then(() => {
+      const port = event.ports && event.ports[0];
+      if (port) port.postMessage({ type: "SW_ACTIVATED" });
+      return self.clients.claim();
+    })
+  );
 });
 
 self.addEventListener("activate", (event) => {
